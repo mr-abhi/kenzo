@@ -23,6 +23,7 @@
 #include <linux/proc_fs.h>
 #include <linux/input.h>
 
+#define FT_GESTURE 1
 #define GESTURE_MODE_DOUBLE_TAP	1
 #define GESTURE_MODE_SWIPE		2
 #define GESTURE_MODE_UNICODE	3

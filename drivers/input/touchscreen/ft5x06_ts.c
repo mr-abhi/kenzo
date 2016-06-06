@@ -50,9 +50,6 @@
 #define FT_SUSPEND_LEVEL 1
 #endif
 
-#if defined(CONFIG_TOUCHSCREEN_GESTURE)
-#endif
-
 #define FT_PROC_DEBUG
 #if defined(FT_PROC_DEBUG)
 #include <linux/proc_fs.h>
@@ -506,9 +503,9 @@ static int check_gesture(struct input_dev *dev, int gesture_id)
 		ctp_set_gesture_data(report_data);
 
 		input_report_key(pdev, BTN_TOUCH, 0);
-		input_report_key(pdev, KEY_GESTURE, 1);
+		input_report_key(pdev, KEY_POWER, 1);
 		input_sync(pdev);
-		input_report_key(pdev, KEY_GESTURE, 0);
+		input_report_key(pdev, KEY_POWER, 0);
 		input_sync(pdev);
 	}
 
@@ -2940,11 +2937,7 @@ static int ft5x06_ts_probe(struct i2c_client *client,
 	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, pdata->y_min,
 			     pdata->y_max, 0, 0);
 #if defined(CONFIG_TOUCHSCREEN_GESTURE)
-#if defined(CONFIG_CT820_COMMON)
-	input_set_capability(input_dev, EV_KEY, KEY_GESTURE);
-#else
 	input_set_capability(input_dev, EV_KEY, KEY_POWER);
-#endif
 #endif
 
 	err = input_register_device(input_dev);
